@@ -28,7 +28,7 @@ jobs:
         go build -v -o main-arm64 ./main.go
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@3.0
       with:
         name: sqlite_cmd-arm64
-        path: sqlite_cmd
+        path: sqlite_cmd-arm64
