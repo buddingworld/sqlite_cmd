@@ -26,7 +26,9 @@ jobs:
         CGO_ENABLED: 0  # 禁用 CGO（除非需要 C 依赖）
       run: |
         go build -v -o main-arm64 ./main.go
-
+        
+    - name: Debug List Files
+      run: ls -la  # 查看当前目录内容，确认文件存在
     - name: Upload Artifact
       uses: actions/upload-pages-artifact@v3
       with:
