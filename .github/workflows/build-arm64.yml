@@ -17,7 +17,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.21'  # 按需修改 Go 版本
+        go-version: '1.23.2'  # 按需修改 Go 版本
 
     - name: Build for ARM64 Linux
       env:
