@@ -19,19 +19,25 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y gcc-aarch64-linux-gnu  # 安装交叉编译工具链
 
+    - name: Install NDK
+      run: |
+        wget https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+        unzip android-ndk-r25b-linux.zip
+        echo "NDK_HOME=$GITHUB_WORKSPACE/android-ndk-r25b" >> $GITHUB_ENV
+        echo "$GITHUB_WORKSPACE/android-ndk-r25b/toolchains/llvm/prebuilt/linux-x86_64/bin" >> $GITHUB_PATH
+
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: '1.23.2'  # 按需修改 Go 版本
 
-    - name: Build for ARM64 Linux
+    - name: Build
       env:
-        GOOS: linux    # 目标操作系统
-        GOARCH: arm64  # 目标架构
-        CGO_ENABLED: 1  # 禁用 CGO（除非需要 C 依赖）
-        CC: aarch64-linux-gnu-gcc
-      run: |
-        go build -v -o main-arm64 ./main.go
+        GOOS: android
+        GOARCH: arm64
+        CGO_ENABLED: 1
+        CC: aarch64-linux-android33-clang
+      run: go build -ldflags "-extldflags=-pie" -o main-arm64 ./main.go
         
     - name: Debug List Files
       run: ls -la  # 查看当前目录内容，确认文件存在
