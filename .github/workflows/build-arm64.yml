@@ -25,10 +25,10 @@ jobs:
         GOARCH: arm64  # 目标架构
         CGO_ENABLED: 0  # 禁用 CGO（除非需要 C 依赖）
       run: |
-        go build -v -o sqlite_cmd-arm64 ./main.go
+        go build -v -o main-arm64 ./main.go
 
     - name: Upload Artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        name: sqlite_cmd-arm64
-        path: sqlite_cmd-arm64
+        name: main-arm64
+        path: main-arm64
