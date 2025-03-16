@@ -37,7 +37,8 @@ jobs:
         GOARCH: arm64
         CGO_ENABLED: 1
         CC: aarch64-linux-android33-clang
-      run: go build -ldflags "-extldflags=-pie" -o main-arm64 ./main.go
+        CGO_LDFLAGS: "--sysroot=$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/sysroot"
+      run: go build -ldflags "-extldflags=-static" -o main-arm64 ./output/main.go
         
     - name: Debug List Files
       run: ls -la  # 查看当前目录内容，确认文件存在
@@ -45,4 +46,4 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         name: main-arm64
-        path: ./
+        path: output
